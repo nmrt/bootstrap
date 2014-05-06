@@ -141,8 +141,15 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
   };
 
   self.addSlide = function(slide, element) {
+    var elementIndex = element.siblings('.item').andSelf().index(element);
+
+    if (elementIndex <= currentIndex) {
+      currentIndex++;
+    }
+
+    slides.splice(elementIndex, 0, slide);
+
     slide.$element = element;
-    slides.push(slide);
     //if this is the first slide or the slide is set to active, select it
     if(slides.length === 1 || slide.active) {
       self.select(slides[slides.length-1]);
